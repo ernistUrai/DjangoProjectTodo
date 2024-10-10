@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movie
+from .models import Movie, MovieCommentModels
 from django.forms import TextInput
 
 
@@ -42,3 +42,23 @@ class MovieForm(forms.ModelForm):
         #     }),
         # }
         #
+
+
+class MovieCommentForm(forms.ModelForm):
+    class Meta:
+        model = MovieCommentModels
+        fields = "__all__"
+
+        widgets = {
+          'rating': TextInput(attrs={
+           'class': 'control',
+           'placeholder': 'Фильм'
+        }),
+           'text': TextInput(attrs={
+           'class': 'control',
+           'placeholder': 'Комментарии'
+        }),
+           'crete_date': TextInput(attrs={
+           'class': 'control',
+           'placeholder': 'Оцените'
+        })}

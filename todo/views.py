@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
-from .forms import MovieForm
+from .forms import MovieForm, MovieCommentForm
 from .models import Movie
 
 
@@ -61,3 +61,17 @@ class MovieDeleteView(DeleteView):
         movie_id = self.kwargs.get('id')
         return get_object_or_404(Movie, id=movie_id)
 
+
+class MovieCommentView(CreateView):
+    template_name = 'movie_comment.html'
+    form_class = MovieCommentForm
+    queryset = Movie.objects.all()
+    success_url = '/'
+
+    def get_object(self, **kwargs):
+        movie_id = self.kwargs.get('id')
+        return get_object_or_404(MovieCommentForm, id=movie_id)
+
+    def form_valid(self, form):
+        print(form.clean)
+        return super(MovieCommentView,self).form_valid(form=form)

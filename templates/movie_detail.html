@@ -18,6 +18,48 @@
             width: 100%;
             height: 100%;
         }
+
+
+        .comment-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    }
+
+    .comment-table th,
+    .comment-table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .comment-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .comment-table td:nth-child(1) {
+        width: 30%;
+    }
+
+    .comment-table td:nth-child(2) {
+        width: 60%;
+    }
+
+    .comment-table td:nth-child(3) {
+        width: 10%;
+    }
+
+    .comment-table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .comment-table caption {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
     </style>
 </head>
 <body>
@@ -30,7 +72,8 @@
             <div class="card-header">
                 <h1 class="text-center">{{ object.title }}</h1>
             </div>
-            <div class="card-body">
+            <div class="card-body">h2>Комментарии</h2>
+
                 <div class="row">
                     <div class="col-md-4">
                         <img src="{{ object.image.url }}" alt="Постер фильма" class="img-fluid">
@@ -49,8 +92,39 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-3">
+                <<textarea class="form-control" id="newComment" rows="3" placeholder="Введите новый комментарий..."></textarea>
+
+                <a href="/movie_detail/{{object.id}}/movie_comment/">
+                    <button class="btn btn-primary mt-2" id="addComment">Добавить комментарий</button>
+                </a>
+            </div>
         </div>
+         <table class="comment-table">
+            <thead>
+                <tr>
+                    <th>Рейтинг</th>
+                    <th>Текст комментария</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for com in object.comments.all %}
+                <tr>
+                    <td>{{com.rating}}</td>
+                    <td>{{com.text}}</td>
+                    <td>{{com.create_date}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
+ <hr>
+
+
+
+<!-- {% include 'movie_comment.html' %}-->
 
  {% include 'footer.html' %}
 </body>

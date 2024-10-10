@@ -13,3 +13,22 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class MovieCommentModels(models.Model):
+    RATING = (
+        ("*", "*"),
+        ("**", "**"),
+        ("***", "***"),
+        ("****", "****"),
+        ("*****", "*****"),
+    )
+
+    movie_choice_comment = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="comments")
+    text = models.TextField()
+    rating = models.CharField(max_length=55, choices=RATING)
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.rating
+
